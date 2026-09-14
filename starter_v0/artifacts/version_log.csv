@@ -1,5 +1,33 @@
-version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_name,metric_before,metric_after,run_file
-v0,Prompt Architect / Lead,none,v0+p233ec2cecfdf+teb3e2243f237,233ec2cecfdfd80b3879531dfe64e2c1903f39fe0facc08f9bed6fcc064b33f5,eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Baseline run,Baseline measurement with unoptimized starter artifacts,tool_routing_accuracy,0.0000,0.7667,runs/v0_B_base_openrouter_20260914T180959839685.json
-v1,Prompt Architect / Lead,system_prompt.md,v1+p439099133d98+teb3e2243f237,439099133d989a545a9cd0251ab90ecef2f0364dbf1d78a34f71a76076c7ab65,eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Routing and boundary failures in v0,Phân định rõ shared service vs device và bắt buộc clarify khi thiếu ID hoặc xin xác nhận trước khi tạo ticket sẽ tăng routing accuracy,tool_routing_accuracy,0.7667,0.9667,runs/v1_B_base_openrouter_20260914T191610954951.json
-v2,Prompt Architect / Lead,system_prompt.md,v2+pb886cc4d556d+teb3e2243f237,b886cc4d556d10ba64cf3562242fad81a997ccbcd76fc21c4fee478ef818f7f1,eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Argument omission in H02 and false clarify in M10,Bắt buộc luôn truyền tường minh check: all cho inspect_device và trích xuất đúng employee ID sau khi hủy lệnh cũ sẽ tăng argument accuracy,argument_accuracy,0.9333,0.9667,runs/v2_B_base_openrouter_20260914T192640389119.json
-v3,Prompt Architect / Lead,system_prompt.md,v3+p56c5a14915dc+teb3e2243f237,56c5a14915dcb4fd0723d678cab3c04e6e7f84120d67ee677e100bee9b391625,eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Optimize multi-turn intent replacement and argument accuracy,Tối ưu hóa khả năng xử lý ngữ cảnh multi-turn và trích xuất tham số chính xác tuyệt đối sẽ giúp đạt độ chính xác tối đa trên toàn bộ tập eval,case_accuracy,0.9667,1.0000,runs/v3_B_base_openrouter_20260914T193013466026.json
+version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_name,
+  metric_before,metric_after,run_file
+    v0,Prompt Architect / Lead,none,v0+p233ec2cecfdf+teb3e2243f237,
+  233ec2cecfdfd80b3879531dfe64e2c1903f39fe0facc08f9bed6fcc064b33f5,
+  eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Baseline run,Baseline measurement with
+  unoptimized starter artifacts,tool_routing_accuracy,0.0000,0.7667,
+  runs/v0_B_base_openrouter_20260914T180959839685.json
+    v1,Prompt Architect / Lead,system_prompt.md,v1+p439099133d98+teb3e2243f237,
+  439099133d989a545a9cd0251ab90ecef2f0364dbf1d78a34f71a76076c7ab65,
+  eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Routing and boundary failures in v0,Phân định
+  rõ shared service vs device và bắt buộc clarify khi thiếu ID hoặc xin xác nhận trước khi tạo ticket sẽ tăng
+  routing accuracy,tool_routing_accuracy,0.7667,0.9667,runs/v1_B_base_openrouter_20260914T191610954951.json
+    v2,Prompt Architect / Lead,system_prompt.md,v2+pb886cc4d556d+teb3e2243f237,
+  b886cc4d556d10ba64cf3562242fad81a997ccbcd76fc21c4fee478ef818f7f1,
+  eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Argument omission in H02 and false clarify in
+  M10,Bắt buộc luôn truyền tường minh check: all cho inspect_device và trích xuất đúng employee ID sau khi hủy
+  lệnh cũ sẽ tăng argument accuracy,argument_accuracy,0.9333,0.9667,
+  runs/v2_B_base_openrouter_20260914T192640389119.json
+    v3,Prompt Architect / Lead,system_prompt.md,v3+p56c5a14915dc+teb3e2243f237,
+  56c5a14915dcb4fd0723d678cab3c04e6e7f84120d67ee677e100bee9b391625,
+  eb3e2243f23747297c1204e5e56f852f5e869f00cb97baae7786baefcabbc419,Optimize multi-turn intent replacement and
+  argument accuracy,Tối ưu hóa khả năng xử lý ngữ cảnh multi-turn và trích xuất tham số chính xác tuyệt đối sẽ
+  giúp đạt độ chính xác tối đa trên toàn bộ tập eval,case_accuracy,0.9667,1.0000,
+  runs/v3_B_base_openrouter_20260914T193013466026.json
+    v0,nthanhwork,tools.yaml,v0+p27467914bc4d+t86e19195220e,
+  27467914bc4d93574eb1a418b77247c51682e04401c78fb4445c22b9019185a0,
+  86e19195220e2c3deba00196baa9d00bd06380b4317f92a4b5c6a302ff616bdb,Baseline run with starter artifacts,Initial
+  baseline measurement,case_accuracy,0.0,0.40,v0_B_base_openrouter_20260914T193739775547.json
+    v1,nthanhwork,tools.yaml,v1+p27467914bc4d+t197c3ef9faa6,
+  27467914bc4d93574eb1a418b77247c51682e04401c78fb4445c22b9019185a0,
+  197c3ef9faa63e9461426492d3776bda3bb78b085c3aeb7d19b5d28fc855c973,Enhanced tools.yaml descriptions and boundary
+  rules for Role B,Explicit routing and boundaries increase routing accuracy above 0.70,case_accuracy,0.40,0.
+  8846,v1_B_base_gemini_20260914T195453325220.json
