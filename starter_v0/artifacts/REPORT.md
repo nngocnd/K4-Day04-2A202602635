@@ -2,7 +2,7 @@
 
 ## Team
 
-- Team: Ngọ Doãn Ngọc
+- Team: 2A202602635
 - Members:
   - Thành viên A (Prompt Architect / Lead): Ngọ Doãn Ngọc — 2A202602635
   - Thành viên B (Tool & Schema Engineer): Nguyễn Thái Anh — 2A202602810
