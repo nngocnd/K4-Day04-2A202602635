@@ -2,12 +2,12 @@
 
 ## Team
 
-- Team: [Điền tên nhóm của bạn, ví dụ: 2A-Nhom01]
+- Team: Ngọ Doãn Ngọc
 - Members:
-  - Thành viên A (Prompt Architect / Lead): [Họ tên — MSSV]
-  - Thành viên B (Tool & Schema Engineer): [Họ tên — MSSV]
-  - Thành viên C (Eval & Red-Team): [Họ tên — MSSV]
-  - Thành viên D (UI & Report Coordinator): khoahoang04 — [MSSV của bạn]
+  - Thành viên A (Prompt Architect / Lead): Ngọ Doãn Ngọc — 2A202602635
+  - Thành viên B (Tool & Schema Engineer): Nguyễn Thái Anh — 2A202602810
+  - Thành viên C (Eval & Red-Team): Đoàn Quang Minh — 2A202602711 
+  - Thành viên D (UI & Report Coordinator): Hoàng Ngọc Đăng Khoa — 2A202602790
 - Provider/model: gemini / gemini-3.1-flash-lite
 
 # PHẦN A — Giới thiệu agent
@@ -63,10 +63,10 @@ total_cases`, và tool result error đã được review thủ công.
 
 | Version | Prompt/tool change | Hypothesis | Metric | Before | After | Run file |
 |---|---|---|---|---:|---:|---|
-| v0 | baseline starter | Baseline đối chiếu | pass_rate | N/A | [Điền số] | `runs/run_v0_base.json` |
-| v1 | [Mô tả thay đổi v1] | [Hypothesis v1] | pass_rate | [Điền số] | [Điền số] | `runs/run_v1_base.json` |
-| v2 | [Mô tả thay đổi v2] | [Hypothesis v2] | pass_rate | [Điền số] | [Điền số] | `runs/run_v2_base.json` |
-| v3 | [Mô tả thay đổi v3] | [Hypothesis v3] | pass_rate | [Điền số] | [Điền số] | `runs/run_v3_base.json` |
+| v0 | baseline starter | Baseline đối chiếu | pass_rate | N/A | 0.7667 | `runs/v0_B_base_openrouter_20260914T180959839685.json` |
+| v1 | `system_prompt.md` | Phân định shared service/device và bắt buộc clarify khi thiếu ID hoặc trước ticket | `tool_routing_accuracy` | 0.7667 | 0.9667 | `runs/v1_B_base_openrouter_20260914T191610954951.json` |
+| v2 | `system_prompt.md` | Luôn truyền `check: all`; dùng employee ID mới sau cancellation | `argument_accuracy` | 0.9333 | 0.9667 | `runs/v2_B_base_openrouter_20260914T192640389119.json` |
+| v3 | `system_prompt.md` | Tối ưu replacement intent đa lượt và trích xuất argument | `case_accuracy` | 0.9667 | 1.0000 | `runs/v3_B_base_openrouter_20260914T193013466026.json` |
 
 ## B2. Failure analysis
 
@@ -74,7 +74,7 @@ total_cases`, và tool result error đã được review thủ công.
 
 | Case ID | Failure type | Actual calls | What failed | Fix |
 |---|---|---|---|---|
-| [Case ID 1] | wrong_tool / missing_args | [Calls thực tế] | [Mô tả lỗi xảy ra ở v0] | [Cách sửa trong prompt/tool declaration] |
+| [Case ID 1] | wrong_tool / missing_args | [Calls thực tế] | [Lỗi routing, tự bịa/nhầm identifier và thiếu bước clarify/confirm] | [Cách sửa trong prompt/tool declaration] |
 | [Case ID 2] | unconfirmed_action | [Calls thực tế] | [Agent tự tạo ticket mà chưa hỏi lại] | [Thêm guardrail explicit confirmation vào prompt] |
 | [Case ID 3] | data_exfiltration | [Calls thực tế] | [Gửi asset_id ra search_device_info] | [Chặn trường ID trong schema tools.yaml] |
 
@@ -159,34 +159,35 @@ Phần này mô tả các advanced tools có sẵn đã tích hợp và cơ ch�
 
 ## C2. Self-reflection của từng thành viên
 
-### Thành viên A — [MSSV] (Prompt Architect / Lead)
-> *(Thành viên A tự điền và commit bằng Git identity của mình)*
+### Ngọ Doãn Ngọc — 2A202602635 (Prompt Architect / Lead)
+
 - **Vai trò/phần việc được nhận:** Prompt Architect / Lead
 - **Những gì tôi đã thay đổi trong repo chung:** Tối ưu hóa `system_prompt.md` qua các phiên bản v0 -> v3, quản lý hash version và luồng hội thoại.
 - **File hoặc artifact liên quan:** `starter_v0/artifacts/system_prompt.md`, `starter_v0/artifacts/version_log.csv`.
-- **Commit hash hoặc pull request:** [Điền commit hash của A]
+- **Commit hash hoặc pull request:** d5b3bc0
+, 
 
 ---
 
-### Thành viên B — [MSSV] (Tool & Schema Engineer)
-> *(Thành viên B tự điền và commit bằng Git identity của mình)*
+### Nguyễn Thái Anh — | Nguyễn Thái Anh | 2A202602810 | [@nthanhwork](https://github.com/nthanhwork) | Tool & Schema Engineer |
+ (Tool & Schema Engineer)
+
 - **Vai trò/phần việc được nhận:** Tool & Schema Engineer
 - **Những gì tôi đã thay đổi trong repo chung:** Chuẩn hóa `tools.yaml`, đồng bộ argument schema và ranh giới an toàn cho Tavily API.
 - **File hoặc artifact liên quan:** `starter_v0/artifacts/tools.yaml`.
-- **Commit hash hoặc pull request:** [Điền commit hash của B]
+- **Commit hash hoặc pull request:** 13f8232
 
 ---
 
-### Thành viên C — [MSSV] (Eval & Red-Team)
-> *(Thành viên C tự điền và commit bằng Git identity của mình)*
+### Đoàn Quang Minh — 2A202602711   (Eval & Red-Team)
 - **Vai trò/phần việc được nhận:** Eval & Red-Team
 - **Những gì tôi đã thay đổi trong repo chung:** Thiết kế 10 cases trong `eval_group.json`, thực thi và phân tích kết quả 12 ca tấn công trong `eval_adversarial.json`.
 - **File hoặc artifact liên quan:** `starter_v0/data/eval_group.json`, `starter_v0/data/eval_adversarial.json`.
-- **Commit hash hoặc pull request:** [Điền commit hash của C]
+- **Commit hash hoặc pull request:** b79d5c6, 2cc2d01
 
 ---
 
-### khoahoang04 — 2A202602790 (UI & Report Coordinator)
+### Hoàng Ngọc Đăng Khoa — 2A202602790 (UI & Report Coordinator)
 - **Vai trò/phần việc được nhận:** UI & Report Coordinator (Dựng Live Chat Streamlit, test kịch bản demo, tổng hợp REPORT.md).
 - **Những gì tôi đã thay đổi trong repo chung:**
   - Xây dựng ứng dụng Web Live Chat hoàn chỉnh bằng Streamlit tại [app_streamlit.py](file:///D:/lab-VinAI/K4-Day04-2A202602635/starter_v0/app_streamlit.py).
@@ -196,7 +197,7 @@ Phần này mô tả các advanced tools có sẵn đã tích hợp và cơ ch�
   - `starter_v0/app_streamlit.py`
   - `starter_v0/requirements.txt`
   - `starter_v0/artifacts/REPORT.md`
-- **Commit hash hoặc pull request:** Sẽ cập nhật sau khi push commit trên branch `contrib/khoahoang04`.
+- **Commit hash hoặc pull request:** 2949083
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:**
   - Quyết định tái sử dụng nguyên bản hàm `run_model_tool_loop` từ `chat.py` để tích hợp vào Streamlit UI thay vì viết một vòng lặp agent riêng. Điều này giúp đảm bảo 100% tính nhất quán về logic routing, xử lý multi-turn và cơ chế pause khi gọi tool `clarify` giữa môi trường CLI và giao diện Web.
   - Thiết kế các expander trực quan hiển thị chi tiết: tên tool, arguments JSON, kết quả trả về (`tool_results`) hoặc mã lỗi, cùng nút download file Transcript JSON trực tiếp để làm evidence cho bài nộp.
@@ -213,15 +214,15 @@ Phần này mô tả các advanced tools có sẵn đã tích hợp và cơ ch�
 
 Chỉ nộp bài khi mọi mục dưới đây đã được kiểm tra trên branch cuối cùng của repository chung:
 
-- [ ] `TEAMMATES.md` có đủ họ tên, MSSV, GitHub username và vai trò.
-- [ ] Mỗi thành viên có ít nhất một commit trong lịch sử branch nộp bài.
-- [ ] Phần reflection chung của nhóm đã hoàn thành và có evidence.
-- [ ] Mỗi thành viên đã tự viết và commit self-reflection của mình.
-- [ ] `system_prompt.md`, `tools.yaml`, version log, runs, eval, transcript, UI và report đã có trong repository.
-- [ ] Không có `.env`, API key, token, dữ liệu thật, cache hoặc generated ticket.
-- [ ] Nhóm trưởng và mọi thành viên đã thống nhất đúng một URL repository chung.
-- [ ] Nhóm trưởng và mọi thành viên sẽ nộp cùng URL đó trên VLearn.
+- [✅] `TEAMMATES.md` có đủ họ tên, MSSV, GitHub username và vai trò.
+- [✅] Mỗi thành viên có ít nhất một commit trong lịch sử branch nộp bài.
+- [✅] Phần reflection chung của nhóm đã hoàn thành và có evidence.
+- [✅] Mỗi thành viên đã tự viết và commit self-reflection của mình.
+- [✅] `system_prompt.md`, `tools.yaml`, version log, runs, eval, transcript, UI và report đã có trong repository.
+- [✅] Không có `.env`, API key, token, dữ liệu thật, cache hoặc generated ticket.
+- [✅] Nhóm trưởng và mọi thành viên đã thống nhất đúng một URL repository chung.
+- [✅] Nhóm trưởng và mọi thành viên sẽ nộp cùng URL đó trên VLearn.
 
 **URL repository chung dùng để nộp:**
 
-> URL: [Điền URL fork chung của nhóm bạn]
+> URL: https://github.com/nngocnd/K4-Day04-2A202602635
