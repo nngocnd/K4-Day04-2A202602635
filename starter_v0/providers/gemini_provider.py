@@ -64,16 +64,13 @@ def _function_call_args(call: Any) -> dict[str, Any]:
     if isinstance(call, dict):
         return dict(call.get("args") or {})
     return {}
-
-
 class GeminiProvider:
     """Google Gemini API provider with normalized tool_calls output."""
-
     def __init__(
         self,
         *,
         api_key_env: str = "GEMINI_API_KEY",
-        default_model: str = "gemini-3.5-flash",
+        default_model: str = "gemini-3.1-flash-lite",
     ) -> None:
         self.api_key_env = api_key_env
         self.default_model = default_model
@@ -93,9 +90,9 @@ class GeminiProvider:
         except ImportError as exc:
             raise RuntimeError("Install live provider dependency first: pip install google-genai") from exc
 
-        api_key = os.getenv(self.api_key_env)
+        api_key = os.getenv(self.api_key_env) or os.getenv("GOOGLE_API_KEY")
         if not api_key:
-            raise RuntimeError(f"Missing API key env var: {self.api_key_env}")
+            raise RuntimeError(f"Missing API key env var: {self.api_key_env} (or GOOGLE_API_KEY)")
 
         system_instruction, contents = _to_gemini_contents(messages)
         declarations = _to_gemini_declarations(tools)
@@ -106,11 +103,33 @@ class GeminiProvider:
             config_kwargs["tools"] = [types.Tool(function_declarations=declarations)]
 
         client = genai.Client(api_key=api_key)
-        resp = client.models.generate_content(
-            model=model or self.default_model,
-            contents=contents,
-            config=types.GenerateContentConfig(**config_kwargs),
-        )
+        # Enforce Gemini 3.1 as requested
+        target_model = model if (model and "3.1" in model) else "gemini-3.1-flash-lite"
+
+        import time
+        max_retries = 4
+        resp = None
+        for attempt in range(max_retries + 1):
+            try:
+                resp = client.models.generate_content(
+                    model=target_model,
+                    contents=contents,
+                    config=types.GenerateContentConfig(**config_kwargs),
+                )
+                break
+            except Exception as exc:
+                err_str = str(exc)
+                is_rate_limit = (
+                    "429" in err_str
+                    or "RESOURCE_EXHAUSTED" in err_str
+                    or getattr(exc, "code", None) == 429
+                )
+                if is_rate_limit and attempt < max_retries:
+                    wait_sec = 4 * (attempt + 1)
+                    print(f"[gemini] 429 Rate limit. Waiting {wait_sec}s to retry ({attempt + 1}/{max_retries})...")
+                    time.sleep(wait_sec)
+                    continue
+                raise
 
         text_parts: list[str] = []
         calls: list[ToolCall] = []

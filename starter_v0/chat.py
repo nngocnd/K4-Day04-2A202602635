@@ -29,7 +29,7 @@ def safe_slug(value: str) -> str:
 
 
 def json_text(value: Any, *, max_chars: int | None = None) -> str:
-    text = json.dumps(value, ensure_ascii=False, indent=2, default=str)
+    text = json.dumps(value, ensure_ascii=False, separators=(",", ":"), default=str)
     if max_chars is not None and len(text) > max_chars:
         return text[:max_chars] + "\n...<truncated>"
     return text
@@ -134,6 +134,9 @@ def run_model_tool_loop(
 
         rounds.append(round_record)
         working_messages.append(tool_results_message(non_clarification_events))
+        # Pacing delay between tool rounds to prevent burst rate-limit (429) on Gemini API
+        import time
+        time.sleep(1.2)
 
     return {
         "status": "max_tool_rounds",

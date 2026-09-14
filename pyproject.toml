@@ -1,0 +1,19 @@
+[project]
+name = "k4-day04-2a202602635"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "nthanhwork", email = "nthaianh.work@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pip>=26.2.1",
+]
+
+[project.scripts]
+k4-day04-2a202602635 = "k4_day04_2a202602635:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
